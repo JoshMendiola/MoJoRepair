@@ -178,9 +178,9 @@ footer {
 }
 
 .services-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, auto);
   gap: 2rem;
   max-width: 1200px;
   margin: 0 auto;
@@ -191,8 +191,9 @@ footer {
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  width: calc(33.333% - 2rem);
   transition: transform 0.3s ease;
+  display: flex;
+  flex-direction: column;
 }
 
 .service-card:hover {
@@ -207,6 +208,10 @@ footer {
 
 .service-info {
   padding: 1.5rem;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .service-info h3 {
@@ -222,8 +227,10 @@ footer {
 .service-price {
   font-weight: bold;
   color: #3498db;
+  margin-top: auto;
 }
 
+/* Login and Register Forms */
 #login, #register {
   background-color: #ecf0f1;
   padding: 5rem 2rem;
@@ -284,31 +291,31 @@ footer {
   text-decoration: underline;
 }
 
-/* Responsive design for services */
+/* Media Queries */
 @media (max-width: 1024px) {
-  .service-card {
-    width: calc(50% - 2rem);
+  .services-container {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (max-width: 768px) {
-  .service-card {
-    width: 100%;
+  .services-container {
+    grid-template-columns: 1fr;
   }
-}
-
-/* Responsive design */
-@media (max-width: 768px) {
   .container {
     flex-direction: column;
   }
-
   .team-image {
     width: 100%;
     margin-bottom: 2rem;
   }
-
   nav ul {
-    display: none; /* For mobile, you might want to implement a hamburger menu */
+    display: none;
+  }
+}
+
+@media (max-width: 576px) {
+  .services-container {
+    grid-template-columns: 1fr;
   }
 }
