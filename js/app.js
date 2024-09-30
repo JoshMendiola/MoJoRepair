@@ -2,12 +2,10 @@ console.log('app.js is being loaded');
 
 import router from './router.js';
 import { initNavigation } from './navigation.js';
-import { setupLoginForm } from './auth.js';
 
 async function handleRouteChange() {
   console.log('handleRouteChange called');
   await router();
-  setupLoginForm();
 }
 
 document.addEventListener('DOMContentLoaded', () => {

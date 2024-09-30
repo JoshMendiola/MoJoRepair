@@ -1,7 +1,14 @@
 console.log('login.js is being loaded');
+import { setupLoginForm } from './auth.js';
 
 export default function Login() {
   console.log('Login component is being rendered');
+
+  setTimeout(() => {
+    console.log('Attempting to setup login form');
+    setupLoginForm();
+  }, 0);
+
   return `
     <section id="login">
       <div class="form-container">

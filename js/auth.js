@@ -47,10 +47,6 @@ function setupLoginForm() {
   }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  console.log('DOMContentLoaded event fired');
-  setupLoginForm();
-});
+// Remove the DOMContentLoaded event listener from here
 
-// If you're using a router, make sure to call setupLoginForm after route changes
-export { setupLoginForm };
+export { setupLoginForm, handleLogin };
