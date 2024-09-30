@@ -1,6 +1,4 @@
-console.log('auth.js is being loaded');
-
-async function handleLogin(event) {
+export async function handleLogin(event) {
   console.log('handleLogin function called');
   event.preventDefault();
   const username = document.getElementById('username').value;
@@ -28,25 +26,23 @@ async function handleLogin(event) {
     console.log('Login successful, received data:', data);
 
     localStorage.setItem('token', data.access_token);
-    alert('Login successful!');
-    window.location.href = '/dashboard';
+    return true; // Indicate successful login
   } catch (error) {
     console.error('Login error:', error);
-    alert('Login failed. Please try again.');
+    throw error; // Rethrow the error to be caught in login.js
   }
 }
 
-function setupLoginForm() {
+export function setupLoginForm() {
   console.log('setupLoginForm function called');
   const loginForm = document.getElementById('login-form');
   if (loginForm) {
     console.log('Login form found, adding event listener');
+    loginForm.removeEventListener('submit', handleLogin); // Remove any existing listener
     loginForm.addEventListener('submit', handleLogin);
   } else {
     console.log('Login form not found');
   }
 }
 
-// Remove the DOMContentLoaded event listener from here
-
-export { setupLoginForm, handleLogin };
+export { handleLogin };

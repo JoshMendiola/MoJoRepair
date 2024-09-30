@@ -12,16 +12,17 @@ export default function Login() {
     // Add event listener for form submission
     const form = document.getElementById('login-form');
     if (form) {
+      form.removeEventListener('submit', handleLogin); // Remove any existing listener
       form.addEventListener('submit', async (e) => {
         e.preventDefault();
         const username = document.getElementById('username').value;
         const password = document.getElementById('password').value;
 
-        // Assuming you have a login function in your auth service
-        const success = await window.authService.login(username, password);
-        if (success) {
+        try {
+          await handleLogin(e);
           navigationService.navigate('/'); // Redirect to home page after successful login
-        } else {
+        } catch (error) {
+          console.error('Login error:', error);
           alert('Login failed. Please try again.');
         }
       });
