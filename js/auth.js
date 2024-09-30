@@ -44,5 +44,3 @@ export function setupLoginForm() {
     console.log('Login form not found');
   }
 }
-
-export { handleLogin };
