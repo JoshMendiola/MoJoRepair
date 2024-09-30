@@ -1,5 +1,5 @@
 console.log('login.js is being loaded');
-import { setupLoginForm } from '../auth';
+import { setupLoginForm, handleLogin } from '../auth';
 import { navigationService } from '../navigation.js';
 
 export default function Login() {
