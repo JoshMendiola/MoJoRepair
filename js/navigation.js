@@ -1,4 +1,5 @@
-// js/navigation.js
+import { navigateTo } from './router.js';
+
 export function initNavigation() {
   const header = document.getElementById('header');
   if (header) {
@@ -6,9 +7,9 @@ export function initNavigation() {
       <nav>
         <div class="logo">MoJo Repairs</div>
         <ul>
-          <li><a href="/">Home</a></li>
-          <li><a href="/services">Services</a></li>
-          <li><a href="/login">Login</a></li>
+          <li><a href="/" data-link>Home</a></li>
+          <li><a href="/services" data-link>Services</a></li>
+          <li><a href="/login" data-link>Login</a></li>
         </ul>
       </nav>
     `;
@@ -20,4 +21,12 @@ export function initNavigation() {
       <p>&copy; ${new Date().getFullYear()} MoJo Repairs. All rights reserved.</p>
     `;
   }
+
+  // Add click event listeners to navigation links
+  document.querySelectorAll('nav a').forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      navigateTo(e.target.href);
+    });
+  });
 }
