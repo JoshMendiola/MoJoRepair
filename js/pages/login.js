@@ -1,5 +1,6 @@
 console.log('login.js is being loaded');
 import { setupLoginForm } from '../auth';
+import { navigationService } from '../navigation.js';
 
 export default function Login() {
   console.log('Login component is being rendered');
@@ -7,6 +8,24 @@ export default function Login() {
   setTimeout(() => {
     console.log('Attempting to setup login form');
     setupLoginForm();
+
+    // Add event listener for form submission
+    const form = document.getElementById('login-form');
+    if (form) {
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+
+        // Assuming you have a login function in your auth service
+        const success = await window.authService.login(username, password);
+        if (success) {
+          navigationService.navigate('/'); // Redirect to home page after successful login
+        } else {
+          alert('Login failed. Please try again.');
+        }
+      });
+    }
   }, 0);
 
   return `

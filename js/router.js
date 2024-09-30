@@ -1,6 +1,7 @@
 import Home from './pages/home.js';
 import Services from './pages/services.js';
 import Login from './pages/login.js';
+import { navigationService } from './navigation.js';
 
 const routes = {
   '/': Home,
@@ -28,8 +29,7 @@ function updateNavigation(path) {
   });
 }
 
-// Add this function to handle navigation
+// This function is now part of the navigationService
 export function navigateTo(url) {
-  history.pushState(null, null, url);
-  router();
+  navigationService.navigate(url);
 }

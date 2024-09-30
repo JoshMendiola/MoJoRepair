@@ -1,5 +1,5 @@
-import router, { navigateTo } from './router.js';
-import { initNavigation } from './navigation.js';
+import router from './router.js';
+import { navigationService } from './navigation.js';
 import * as authService from './auth.js';
 import * as services from './services.js';
 
@@ -10,21 +10,25 @@ async function handleRouteChange() {
   await router();
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  console.log('DOMContentLoaded event in app.js');
-  initNavigation();
+function initApp() {
+  console.log('Initializing app');
+  navigationService.initNavigation();
   handleRouteChange();
-});
 
-window.addEventListener('popstate', handleRouteChange);
+  window.addEventListener('popstate', handleRouteChange);
 
-document.addEventListener('click', e => {
-  if (e.target.matches('[data-link]')) {
-    e.preventDefault();
-    navigateTo(e.target.href);
-  }
-});
+  document.addEventListener('click', e => {
+    const link = e.target.closest('a');
+    if (link && link.getAttribute('data-link') !== null) {
+      e.preventDefault();
+      navigationService.navigate(link.href);
+    }
+  });
+}
 
-// Make services available globally if needed
+document.addEventListener('DOMContentLoaded', initApp);
+
+// Make services available globally
 window.authService = authService;
 window.services = services;
+window.navigationService = navigationService;
