@@ -18,36 +18,17 @@ async function handleLogin(event) {
       throw new Error('Login failed');
     }
 
+    const data = await response.json();
+    localStorage.setItem('token', data.access_token);
     alert('Login successful!');
-
-    window.location.href = '/dashboard'
-
+    window.location.href = '/dashboard';
   } catch (error) {
     console.error('Login error:', error);
     alert('Login failed. Please try again.');
   }
 }
 
-function handleRegister(event) {
-  event.preventDefault();
-  const username = document.getElementById('username').value;
-  const email = document.getElementById('email').value;
-  const password = document.getElementById('password').value;
-  const confirmPassword = document.getElementById('confirm-password').value;
-
-  if (password !== confirmPassword) {
-    alert("Passwords don't match!");
-    return;
-  }
-
-  // Here you would typically send a request to your backend API
-  console.log('Register attempt:', { username, email, password });
-  alert(`Register attempt for username: ${username} and email: ${email}. In a real app, this would connect to a backend.`);
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  initNavigation();
-
+function setupFormListeners() {
   const loginForm = document.getElementById('login-form');
   if (loginForm) {
     loginForm.addEventListener('submit', handleLogin);
@@ -57,4 +38,12 @@ document.addEventListener('DOMContentLoaded', () => {
   if (registerForm) {
     registerForm.addEventListener('submit', handleRegister);
   }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  initNavigation();
+  setupFormListeners();
 });
+
+// Export setupFormListeners so it can be called after dynamic content loading
+export { setupFormListeners };

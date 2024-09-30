@@ -1,16 +1,23 @@
 import router from './router.js';
 import { initNavigation } from './navigation.js';
+import { setupFormListeners } from './auth.js';
+
+async function handleRouteChange() {
+  await router();
+  setupFormListeners();
+}
 
 document.addEventListener('DOMContentLoaded', () => {
   initNavigation();
-  router();
+  handleRouteChange();
 });
 
-window.addEventListener('popstate', router);
+window.addEventListener('popstate', handleRouteChange);
+
 document.addEventListener('click', e => {
   if (e.target.matches('a')) {
     e.preventDefault();
     history.pushState('', '', e.target.href);
-    router();
+    handleRouteChange();
   }
 });
