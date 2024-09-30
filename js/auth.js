@@ -1,11 +1,12 @@
-import { initNavigation } from './navigation.js';
+console.log('auth.js is being loaded');
 
 async function handleLogin(event) {
+  console.log('handleLogin function called');
   event.preventDefault();
   const username = document.getElementById('username').value;
   const password = document.getElementById('password').value;
 
-  console.log('Attempting to send login request...');
+  console.log('Attempting to send login request...', { username, password });
 
   try {
     console.log('Sending fetch request to /api/login');
@@ -35,22 +36,21 @@ async function handleLogin(event) {
   }
 }
 
-function setupFormListeners() {
+function setupLoginForm() {
+  console.log('setupLoginForm function called');
   const loginForm = document.getElementById('login-form');
   if (loginForm) {
+    console.log('Login form found, adding event listener');
     loginForm.addEventListener('submit', handleLogin);
-  }
-
-  const registerForm = document.getElementById('register-form');
-  if (registerForm) {
-    registerForm.addEventListener('submit', handleRegister);
+  } else {
+    console.log('Login form not found');
   }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  initNavigation();
-  setupFormListeners();
+  console.log('DOMContentLoaded event fired');
+  setupLoginForm();
 });
 
-// Export setupFormListeners so it can be called after dynamic content loading
-export { setupFormListeners };
+// If you're using a router, make sure to call setupLoginForm after route changes
+export { setupLoginForm };
