@@ -7,20 +7,18 @@ export default function Login() {
 
   setTimeout(() => {
     console.log('Attempting to setup login form');
-    setupLoginForm();
-
-    // Add event listener for form submission
     const form = document.getElementById('login-form');
     if (form) {
-      form.removeEventListener('submit', handleLogin); // Remove any existing listener
       form.addEventListener('submit', async (e) => {
         e.preventDefault();
         const username = document.getElementById('username').value;
         const password = document.getElementById('password').value;
 
         try {
-          await handleLogin(e);
-          navigationService.navigate('/'); // Redirect to home page after successful login
+          const success = await handleLogin({ username, password });
+          if (success) {
+            navigationService.navigate('/');
+          }
         } catch (error) {
           console.error('Login error:', error);
           alert('Login failed. Please try again.');
@@ -28,6 +26,7 @@ export default function Login() {
       });
     }
   }, 0);
+
 
   return `
     <section id="login">
