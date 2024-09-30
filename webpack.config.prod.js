@@ -24,6 +24,12 @@ module.exports = {
       },
     ],
   },
+  resolve: {
+    extensions: ['.js'],
+    alias: {
+      '@': path.resolve(__dirname, 'js'),
+    },
+  },
   plugins: [
     new HtmlWebpackPlugin({
       template: './index.html',
@@ -46,6 +52,11 @@ module.exports = {
     },
     compress: true,
     port: 3000,
+    host: '0.0.0.0',
+    allowedHosts: 'all',
     hot: true,
+    client: {
+      webSocketURL: 'auto://0.0.0.0:0/ws',
+    },
   },
 };

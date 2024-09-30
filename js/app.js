@@ -1,7 +1,10 @@
-console.log('app.js is being loaded');
-
 import router from './router.js';
 import { initNavigation } from './navigation.js';
+import * as authService from './auth.js';
+import * as services from './services.js';
+
+// Your existing app.js code here
+console.log('app.js is being loaded');
 
 async function handleRouteChange() {
   console.log('handleRouteChange called');
@@ -17,11 +20,13 @@ document.addEventListener('DOMContentLoaded', () => {
 window.addEventListener('popstate', handleRouteChange);
 
 document.addEventListener('click', e => {
-  const link = e.target.closest('a');
-  if (link && link.getAttribute('data-link') !== null) {
+  if (e.target.matches('[data-link]')) {
     e.preventDefault();
-    const href = link.getAttribute('href');
-    history.pushState(null, null, href);
+    history.pushState(null, null, e.target.href);
     handleRouteChange();
   }
 });
+
+// Make services available globally if needed
+window.authService = authService;
+window.services = services;

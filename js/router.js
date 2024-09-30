@@ -1,21 +1,15 @@
+import Home from './pages/home.js';
+import Services from './pages/services.js';
+import Login from './pages/login.js';
+
 const routes = {
-  '/': { title: 'Home', render: () => import('./pages/home.js') },
-  '/services': { title: 'Services', render: () => import('./pages/services.js') },
-  '/login': { title: 'Login', render: () => import('./pages/login.js') },
+  '/': Home,
+  '/services': Services,
+  '/login': Login,
 };
 
-export default function router() {
-  let view = routes[location.pathname];
-
-  if (view) {
-    document.title = view.title;
-    view.render().then(module => {
-      const page = module.default;
-      document.getElementById('app').innerHTML = page();
-    });
-  } else {
-    // Handle 404
-    history.pushState('', '', '/');
-    router();
-  }
+export default async function router() {
+  const path = window.location.pathname;
+  const page = routes[path] || routes['/'];
+  document.querySelector('#app').innerHTML = await page();
 }
