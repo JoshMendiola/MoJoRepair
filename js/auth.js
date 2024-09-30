@@ -1,14 +1,31 @@
 import { initNavigation } from './navigation.js';
 
-function handleLogin(event) {
+async function handleLogin(event) {
   event.preventDefault();
   const username = document.getElementById('username').value;
   const password = document.getElementById('password').value;
 
-  // Here you would typically send a request to your backend API
-  // For now, we'll just log the values and show an alert
-  console.log('Login attempt:', { username, password });
-  alert(`Login attempt for username: ${username}. In a real app, this would connect to a backend.`);
+  try {
+    const response = await fetch('/api/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ username, password }),
+    });
+
+    if (!response.ok) {
+      throw new Error('Login failed');
+    }
+
+    alert('Login successful!');
+
+    window.location.href = '/dashboard'
+
+  } catch (error) {
+    console.error('Login error:', error);
+    alert('Login failed. Please try again.');
+  }
 }
 
 function handleRegister(event) {
