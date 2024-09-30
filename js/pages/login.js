@@ -1,5 +1,5 @@
 console.log('login.js is being loaded');
-import { setupLoginForm } from './auth.js';
+import { setupLoginForm } from '../auth';
 
 export default function Login() {
   console.log('Login component is being rendered');
