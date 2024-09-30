@@ -6,20 +6,22 @@ import { initNavigation } from './navigation.js';
 async function handleRouteChange() {
   console.log('handleRouteChange called');
   await router();
+  initNavigation();
 }
 
 document.addEventListener('DOMContentLoaded', () => {
   console.log('DOMContentLoaded event in app.js');
-  initNavigation();
   handleRouteChange();
 });
 
 window.addEventListener('popstate', handleRouteChange);
 
 document.addEventListener('click', e => {
-  if (e.target.matches('[data-link]')) {
+  const link = e.target.closest('a');
+  if (link && link.getAttribute('data-link') !== null) {
     e.preventDefault();
-    history.pushState(null, null, e.target.href);
+    const href = link.getAttribute('href');
+    history.pushState(null, null, href);
     handleRouteChange();
   }
 });

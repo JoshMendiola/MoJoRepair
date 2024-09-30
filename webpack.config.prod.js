@@ -8,7 +8,7 @@ module.exports = {
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),
-    clean: true,
+    publicPath: '/',
   },
   module: {
     rules: [
@@ -21,10 +21,6 @@ module.exports = {
             presets: ['@babel/preset-env'],
           },
         },
-      },
-      {
-        test: /\.css$/,
-        use: ['style-loader', 'css-loader'],
       },
     ],
   },
@@ -44,17 +40,12 @@ module.exports = {
     }),
   ],
   devServer: {
+    historyApiFallback: true,
     static: {
       directory: path.join(__dirname, 'dist'),
     },
     compress: true,
     port: 3000,
-    host: '0.0.0.0',
-    allowedHosts: 'all',
     hot: true,
-    client: {
-      webSocketURL: 'auto://0.0.0.0:0/ws',
-    },
-    webSocketServer: 'ws',
   },
 };
