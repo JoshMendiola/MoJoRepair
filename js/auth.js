@@ -5,7 +5,10 @@ async function handleLogin(event) {
   const username = document.getElementById('username').value;
   const password = document.getElementById('password').value;
 
+  console.log('Attempting to send login request...');
+
   try {
+    console.log('Sending fetch request to /api/login');
     const response = await fetch('/api/login', {
       method: 'POST',
       headers: {
@@ -14,11 +17,15 @@ async function handleLogin(event) {
       body: JSON.stringify({ username, password }),
     });
 
+    console.log('Received response:', response);
+
     if (!response.ok) {
       throw new Error('Login failed');
     }
 
     const data = await response.json();
+    console.log('Login successful, received data:', data);
+
     localStorage.setItem('token', data.access_token);
     alert('Login successful!');
     window.location.href = '/dashboard';
