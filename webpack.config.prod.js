@@ -45,18 +45,4 @@ module.exports = {
       ],
     }),
   ],
-  devServer: {
-    historyApiFallback: true,
-    static: {
-      directory: path.join(__dirname, 'dist'),
-    },
-    compress: true,
-    port: 3000,
-    host: '0.0.0.0',
-    allowedHosts: 'all',
-    hot: true,
-    client: {
-      webSocketURL: 'auto://0.0.0.0:0/ws',
-    },
-  },
 };
