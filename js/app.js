@@ -8,8 +8,8 @@ console.log('app.js is being loaded');
 
 async function handleRouteChange() {
   console.log('handleRouteChange called');
-  await router();
   initNavigation();
+  await router();
 }
 
 document.addEventListener('DOMContentLoaded', () => {
