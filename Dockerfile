@@ -1,5 +1,5 @@
 # Build stage
-FROM node:14-alpine as build
+FROM node:14 as build
 
 WORKDIR /app
 
@@ -9,27 +9,25 @@ COPY package*.json ./
 # Install dependencies
 RUN npm ci
 
-# Copy the rest of the application code
+# Copy the rest of the code
 COPY . .
 
-# Build the application
+# Build the app
 RUN npm run build
 
-# Production stage
+# Serve stage
 FROM node:14-alpine
 
 WORKDIR /app
 
-# Copy built assets from the build stage
-COPY --from=build /app/dist ./dist
-COPY --from=build /app/package*.json ./
+# Install a simple http server for serving static content
+RUN npm install -g http-server
 
-# Install only production dependencies
-RUN npm ci --only=production
+# Copy the build output from the build stage
+COPY --from=build /app/dist .
 
+# Expose the port the app runs on
 EXPOSE 3000
 
-# Use a lightweight server to serve static files
-RUN npm install -g serve
-
-CMD ["serve", "-s", "dist", "-l", "3000"]
+# Command to run the app
+CMD ["http-server", "-p", "3000", "-a", "0.0.0.0"]
