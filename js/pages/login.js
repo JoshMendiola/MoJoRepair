@@ -7,24 +7,24 @@ export default function Login() {
 
   setTimeout(() => {
     console.log('Attempting to setup login form');
-    setupLoginForm(); // Use the setupLoginForm function from auth.js
     const form = document.getElementById('login-form');
     if (form) {
-      form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        try {
-          const success = await handleLogin(e);
-          if (success) {
-            navigationService.navigate('/');
-          }
-        } catch (error) {
-          console.error('Login error:', error);
-          alert('Login failed. Please try again.');
-        }
-      });
+      form.removeEventListener('submit', handleLoginWrapper); // Remove any existing listener
+      form.addEventListener('submit', handleLoginWrapper);
     }
   }, 0);
 
+  function handleLoginWrapper(e) {
+    e.preventDefault();
+    handleLogin(e).then(success => {
+      if (success) {
+        navigationService.navigate('/');
+      }
+    }).catch(error => {
+      console.error('Login error:', error);
+      alert('Login failed. Please try again.');
+    });
+  }
 
   return `
     <section id="login">

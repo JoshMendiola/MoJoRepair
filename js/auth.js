@@ -33,15 +33,3 @@ export async function handleLogin(event) {
     throw error; // Rethrow the error to be caught in login.js
   }
 }
-
-export function setupLoginForm() {
-  console.log('setupLoginForm function called');
-  const loginForm = document.getElementById('login-form');
-  if (loginForm) {
-    console.log('Login form found, adding event listener');
-    loginForm.removeEventListener('submit', handleLogin); // Remove any existing listener
-    loginForm.addEventListener('submit', handleLogin);
-  } else {
-    console.log('Login form not found');
-  }
-}

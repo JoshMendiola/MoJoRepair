@@ -32,3 +32,6 @@ document.addEventListener('DOMContentLoaded', initApp);
 window.authService = authService;
 window.services = services;
 window.navigationService = navigationService;
+
+// Export handleLogin directly
+export const { handleLogin } = authService;
