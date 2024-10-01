@@ -6,7 +6,7 @@ import { navigationService } from './navigation.js';
 const routes = {
   '/': Home,
   '/services': Services,
-  '/login': Login,
+  '/admin': Login,
 };
 
 export default async function router() {
