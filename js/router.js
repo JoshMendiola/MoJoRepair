@@ -1,7 +1,6 @@
 import Home from './pages/home.js';
 import Services from './pages/services.js';
 import Login from './pages/login.js';
-import { navigationService } from './navigation.js';
 
 const routes = {
   '/': Home,
@@ -11,11 +10,20 @@ const routes = {
 
 export default async function router() {
   const path = window.location.pathname;
+  console.log('Current path:', path);  // Debugging line
   const page = routes[path] || routes['/'];
-  document.querySelector('#app').innerHTML = await page();
-
-  // Update the navigation state
-  updateNavigation(path);
+  if (!page) {
+    console.error('No page found for path:', path);  // Debugging line
+    return;
+  }
+  try {
+    const content = await page();
+    console.log('Page content:', content);  // Debugging line
+    document.querySelector('#app').innerHTML = content;
+    updateNavigation(path);
+  } catch (error) {
+    console.error('Error rendering page:', error);  // Debugging line
+  }
 }
 
 function updateNavigation(path) {
@@ -29,7 +37,11 @@ function updateNavigation(path) {
   });
 }
 
-// This function is now part of the navigationService
 export function navigateTo(url) {
-  navigationService.navigate(url);
+  history.pushState(null, null, url);
+  return router();
 }
+
+// Initialize router
+window.addEventListener('popstate', router);
+document.addEventListener('DOMContentLoaded', router);

@@ -25,5 +25,13 @@ export const navigationService = {
         <p>&copy; ${new Date().getFullYear()} MoJo Repairs. All rights reserved.</p>
       `;
     }
+
+    // Add event listeners for navigation
+    document.body.addEventListener('click', (e) => {
+      if (e.target.matches('[data-link]')) {
+        e.preventDefault();
+        navigationService.navigate(e.target.href);
+      }
+    });
   }
 };
