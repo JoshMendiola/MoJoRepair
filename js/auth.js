@@ -1,8 +1,9 @@
 export async function handleLogin(event) {
   console.log('handleLogin function called');
   event.preventDefault();
-  const username = document.getElementById('username').value;
-  const password = document.getElementById('password').value;
+  const form = event.target;
+  const username = form.username.value;
+  const password = form.password.value;
 
   console.log('Attempting to send login request...', { username, password });
 
