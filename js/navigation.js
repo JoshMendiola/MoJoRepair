@@ -13,6 +13,7 @@ export const navigationService = {
           <ul>
             <li><a href="/" data-link>Home</a></li>
             <li><a href="/services" data-link>Services</a></li>
+            <li><a href="/admin" data-link>Admin</a></li>
           </ul>
         </nav>
       `;
