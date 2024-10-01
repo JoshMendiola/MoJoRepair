@@ -7,6 +7,7 @@ export default function Login() {
 
   setTimeout(() => {
     console.log('Attempting to setup login form');
+    setupLoginForm(); // Use the setupLoginForm function from auth.js
     const form = document.getElementById('login-form');
     if (form) {
       form.addEventListener('submit', async (e) => {
