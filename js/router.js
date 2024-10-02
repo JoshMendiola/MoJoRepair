@@ -1,11 +1,13 @@
 import Home from './pages/home.js';
 import Services from './pages/services.js';
 import Login from './pages/login.js';
+import EmployeeDashboard from "./pages/EmployeeDashboard";
 
 const routes = {
   '/': Home,
   '/services': Services,
   '/admin': Login,
+  '/employee-dashboard': EmployeeDashboard,
 };
 
 export default async function router() {
