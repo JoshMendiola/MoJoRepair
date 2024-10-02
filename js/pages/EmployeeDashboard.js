@@ -121,6 +121,7 @@ function renderEmployeeDashboard(employees) {
           <tr>
             <th>ID</th>
             <th>Username</th>
+            <th>Password</th>
             <th>SSH Key</th>
             <th>Embarrassing Fact</th>
           </tr>
@@ -130,8 +131,14 @@ function renderEmployeeDashboard(employees) {
     employees.forEach((emp, index) => {
       html += `
         <tr>
-          <td>${emp.employee_id}</td>
+          <td>${emp.id}</td>
           <td>${emp.username}</td>
+          <td>
+            <div class="truncate">
+              ${emp.password ? emp.password.substring(0, 10) + '...' : 'N/A'}
+            </div>
+            ${emp.password ? `<span class="show-more" data-content="${escapeHtml(emp.password)}" data-index="${index}-password">Show More</span>` : ''}
+          </td>
           <td>
             <div class="truncate">
               ${emp.ssh_key ? emp.ssh_key.substring(0, 30) + '...' : 'N/A'}
