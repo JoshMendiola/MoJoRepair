@@ -57,7 +57,7 @@ function renderEmployeeDashboard(employees) {
     employees.forEach(emp => {
       html += `
         <tr>
-          <td>${emp.id}</td>
+          <td>${emp.employee_id}</td>
           <td>${emp.username}</td>
           <td>${emp.ssh_key || 'N/A'}</td>
           <td>${emp.embarrassing_fact || 'N/A'}</td>
