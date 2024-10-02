@@ -33,3 +33,7 @@ export async function handleLogin(event) {
     throw error; // Rethrow the error to be caught in login.js
   }
 }
+
+export function isAuthenticated() {
+  return !!localStorage.getItem('token');
+}
