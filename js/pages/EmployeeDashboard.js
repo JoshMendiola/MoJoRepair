@@ -11,7 +11,14 @@ export default async function EmployeeDashboard() {
 
   try {
     const employees = await fetchEmployees();
-    return renderEmployeeDashboard(employees);
+    const dashboardHtml = renderEmployeeDashboard(employees);
+
+    // Use setTimeout to ensure the DOM is updated before adding event listeners
+    setTimeout(() => {
+      setupEventListeners();
+    }, 0);
+
+    return dashboardHtml;
   } catch (error) {
     console.error('Error fetching employees:', error);
     return '<p>Error loading employee data. Please try again later.</p>';
@@ -120,7 +127,7 @@ function renderEmployeeDashboard(employees) {
         </thead>
         <tbody>
     `;
-    employees.forEach(emp => {
+    employees.forEach((emp, index) => {
       html += `
         <tr>
           <td>${emp.employee_id}</td>
@@ -129,13 +136,13 @@ function renderEmployeeDashboard(employees) {
             <div class="truncate">
               ${emp.ssh_key ? emp.ssh_key.substring(0, 30) + '...' : 'N/A'}
             </div>
-            ${emp.ssh_key ? `<span class="show-more" onclick="showModal('${escapeHtml(emp.ssh_key)}')">Show More</span>` : ''}
+            ${emp.ssh_key ? `<span class="show-more" data-content="${escapeHtml(emp.ssh_key)}" data-index="${index}-ssh">Show More</span>` : ''}
           </td>
           <td>
             <div class="truncate">
               ${emp.embarrassing_fact ? emp.embarrassing_fact.substring(0, 30) + '...' : 'N/A'}
             </div>
-            ${emp.embarrassing_fact ? `<span class="show-more" onclick="showModal('${escapeHtml(emp.embarrassing_fact)}')">Show More</span>` : ''}
+            ${emp.embarrassing_fact ? `<span class="show-more" data-content="${escapeHtml(emp.embarrassing_fact)}" data-index="${index}-fact">Show More</span>` : ''}
           </td>
         </tr>
       `;
@@ -143,26 +150,30 @@ function renderEmployeeDashboard(employees) {
     html += '</tbody></table>';
   }
 
-  html += `
-    <script>
-      function showModal(content) {
-        document.getElementById('modal-text').textContent = content;
-        document.getElementById('modal').style.display = 'block';
-      }
-
-      document.querySelector('.close').onclick = function() {
-        document.getElementById('modal').style.display = 'none';
-      }
-
-      window.onclick = function(event) {
-        if (event.target == document.getElementById('modal')) {
-          document.getElementById('modal').style.display = 'none';
-        }
-      }
-    </script>
-  `;
-
   return html;
+}
+
+function setupEventListeners() {
+  const modal = document.getElementById('modal');
+  const modalText = document.getElementById('modal-text');
+  const closeBtn = document.querySelector('.close');
+
+  document.addEventListener('click', function(event) {
+    if (event.target.classList.contains('show-more')) {
+      modalText.textContent = event.target.dataset.content;
+      modal.style.display = 'block';
+    }
+  });
+
+  closeBtn.onclick = function() {
+    modal.style.display = 'none';
+  }
+
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = 'none';
+    }
+  }
 }
 
 function escapeHtml(unsafe) {
