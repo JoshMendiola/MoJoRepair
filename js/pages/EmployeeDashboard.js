@@ -45,4 +45,27 @@ async function fetchEmployees() {
   return await response.json();
 }
 
-// ... rest of the file remains the same
+function renderEmployeeDashboard(employees) {
+  let html = '<h1>Employee Dashboard</h1>';
+
+  if (employees.length === 0) {
+    html += '<p>No employees found.</p>';
+  } else {
+    html += '<table class="employee-table">';
+    html += '<thead><tr><th>ID</th><th>Username</th><th>SSH Key</th><th>Embarrassing Fact</th></tr></thead>';
+    html += '<tbody>';
+    employees.forEach(emp => {
+      html += `
+        <tr>
+          <td>${emp.id}</td>
+          <td>${emp.username}</td>
+          <td>${emp.ssh_key || 'N/A'}</td>
+          <td>${emp.embarrassing_fact || 'N/A'}</td>
+        </tr>
+      `;
+    });
+    html += '</tbody></table>';
+  }
+
+  return html;
+}
