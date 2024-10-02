@@ -71,7 +71,6 @@ export function loadServicesPreview() {
       <ul>
         ${services.slice(0, 5).map(service => `<li>${service.title}</li>`).join('')}
       </ul>
-      <a href="/services" class="btn">View All Services</a>
     </section>
   `;
 }
