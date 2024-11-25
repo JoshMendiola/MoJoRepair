@@ -18,25 +18,31 @@ const routes = {
 };
 
 const protectedRoutes = ['/dashboard', '/sql-demo', '/sql-demo/services', '/sql-demo/employee-dashboard'];
-const publicRoutes = ['/', '/login'];  // Routes that don't need auth check
+const publicRoutes = ['/', '/login'];
 
 export default async function router() {
   const path = window.location.pathname;
   console.log('Current path:', path);
 
-  // Only check authentication for protected routes, not public ones
+  // Skip auth check for public routes
+  if (publicRoutes.includes(path)) {
+    const Component = routes[path];
+    try {
+      const content = await Component();
+      document.querySelector('#app').innerHTML = content;
+      updateNavigation(path);
+    } catch (error) {
+      console.error('Error rendering page:', error);
+    }
+    return;
+  }
+
+  // Check auth only for protected routes
   if (protectedRoutes.includes(path)) {
     const authenticated = await isAuthenticated();
     if (!authenticated) {
       console.log('Not authenticated, redirecting to login');
       navigationService.navigate('/login');
-      return;
-    }
-  } else if (publicRoutes.includes(path)) {
-    // If on a public route and authenticated, redirect to dashboard
-    const authenticated = await isAuthenticated();
-    if (authenticated && path !== '/dashboard') {
-      navigationService.navigate('/dashboard');
       return;
     }
   }
