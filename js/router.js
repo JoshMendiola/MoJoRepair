@@ -18,12 +18,13 @@ const routes = {
 };
 
 const protectedRoutes = ['/dashboard', '/sql-demo', '/sql-demo/services', '/sql-demo/employee-dashboard'];
+const publicRoutes = ['/', '/login'];  // Routes that don't need auth check
 
 export default async function router() {
   const path = window.location.pathname;
   console.log('Current path:', path);
-  
-  // Check authentication for protected routes
+
+  // Only check authentication for protected routes, not public ones
   if (protectedRoutes.includes(path)) {
     const authenticated = await isAuthenticated();
     if (!authenticated) {
@@ -31,12 +32,10 @@ export default async function router() {
       navigationService.navigate('/login');
       return;
     }
-  }
-
-  // Special handling for root path
-  if (path === '/') {
+  } else if (publicRoutes.includes(path)) {
+    // If on a public route and authenticated, redirect to dashboard
     const authenticated = await isAuthenticated();
-    if (authenticated) {
+    if (authenticated && path !== '/dashboard') {
       navigationService.navigate('/dashboard');
       return;
     }
