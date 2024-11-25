@@ -38,11 +38,18 @@ export async function handleLogin(event) {
   }
 }
 
-export function isAuthenticated() {
-  const hasToken = document.cookie.includes('authToken=');
-  console.log('Checking authentication, has token:', hasToken);
-  console.log('Current cookies:', document.cookie);
-  return hasToken;
+export async function isAuthenticated() {
+  try {
+    const response = await fetch('/api/check-auth', {
+      credentials: 'include'
+    });
+    const hasToken = response.ok;
+    console.log('Checking authentication, has token:', hasToken);
+    return hasToken;
+  } catch (error) {
+    console.error('Auth check error:', error);
+    return false;
+  }
 }
 
 export async function handleLogout() {
