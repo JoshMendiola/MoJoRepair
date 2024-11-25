@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { navigationService } from '../../navigation';
+import { navigationService } from '../../navigation.js';
 
 export default function VulnerableLogin() {
   const [username, setUsername] = useState('');

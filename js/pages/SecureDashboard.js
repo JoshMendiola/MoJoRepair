@@ -1,6 +1,6 @@
 // pages/SecureDashboard.js
 import React from 'react';
-import { navigationService } from '../navigation';
+import { navigationService } from '../navigation.js';
 
 export default function SecureDashboard() {
   const handleLogout = async () => {

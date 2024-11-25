@@ -1,5 +1,5 @@
 import SQLDemoHome from './pages/SQLDemo/home.js';
-import Services from './pages//SQLDemo/services.js';
+import Services from './pages/SQLDemo/servicesLoader.js';
 import Login from './pages/login.js';
 import EmployeeDashboard from "./pages/SQLDemo/EmployeeDashboard.js";
 import SecureDashboard from "./pages/SecureDashboard.js";

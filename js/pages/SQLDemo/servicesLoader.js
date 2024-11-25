@@ -1,5 +1,5 @@
-import { loadServices } from '../services.js';
-import { navigationService } from '../navigation.js';
+import { loadServices } from '../../services.js';
+import { navigationService } from '../../navigation.js';
 
 export default function Services() {
   setTimeout(() => {
