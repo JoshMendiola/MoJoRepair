@@ -7,7 +7,7 @@ import VulnerableLogin from "./pages/SQLDemo/vulnerable-login.js";
 import { requireAuth } from './routes/SecureRoutes.js';
 
 const routes = {
-  '/login': Login,
+  '/': Login,
   '/dashboard': SecureDashboard,
   '/sql-demo': SQLDemoHome,
   '/sql-demo/admin': VulnerableLogin,
