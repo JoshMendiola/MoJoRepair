@@ -17,12 +17,20 @@ export async function handleLogin(event) {
     });
 
     console.log('Received response:', response);
+    console.log('Response headers:', [...response.headers.entries()]);
 
     if (!response.ok) {
       throw new Error('Login failed');
     }
 
-    // No need to store token in localStorage as it's now in cookies
+    const data = await response.json();
+    console.log('Response data:', data);
+    
+    // Check if cookie was set
+    console.log('Cookies after login:', document.cookie);
+    const isAuthenticated = document.cookie.includes('authToken=');
+    console.log('Is authenticated?', isAuthenticated);
+
     return true;
   } catch (error) {
     console.error('Login error:', error);
@@ -31,7 +39,10 @@ export async function handleLogin(event) {
 }
 
 export function isAuthenticated() {
-  return document.cookie.includes('authToken=');
+  const hasToken = document.cookie.includes('authToken=');
+  console.log('Checking authentication, has token:', hasToken);
+  console.log('Current cookies:', document.cookie);
+  return hasToken;
 }
 
 export async function handleLogout() {
@@ -42,7 +53,7 @@ export async function handleLogout() {
     });
     
     if (response.ok) {
-      window.location.href = '/login'; // Full page reload to clear any state
+      window.location.href = '/login';
     } else {
       console.error('Logout failed');
     }
