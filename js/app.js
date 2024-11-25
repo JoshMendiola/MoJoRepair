@@ -1,7 +1,7 @@
 import router from './router.js';
 import { navigationService } from './navigation.js';
 import * as authService from './auth.js';
-import * as services from './services.js';
+import * as services from './pages/SQLDemo/services.js';
 
 console.log('app.js is being loaded');
 

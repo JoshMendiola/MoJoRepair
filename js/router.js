@@ -1,8 +1,9 @@
-import Home from './pages/SQLDemo/home.js';
-import Services from './pages/services.js';
+import SQLDemoHome from './pages/SQLDemo/home.js';
+import Services from './pages//SQLDemo/services.js';
 import Login from './pages/login.js';
-import EmployeeDashboard from "./pages/EmployeeDashboard.js";
+import EmployeeDashboard from "./pages/SQLDemo/EmployeeDashboard.js";
 import SecureDashboard from "./pages/SecureDashboard.js";
+import VulnerableLogin from "./pages/SQLDemo/vulnerable-login.js";
 import { requireAuth } from './routes/SecureRoutes.js';
 
 const routes = {
