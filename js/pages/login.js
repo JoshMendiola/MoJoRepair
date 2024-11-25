@@ -18,14 +18,8 @@ export default function Login() {
     e.preventDefault();
     handleLogin(e).then(success => {
       if (success) {
-        const token = localStorage.getItem('token');
-        if (token) {
-          console.log('Token stored successfully:', token);
-          navigationService.navigate('/employee-dashboard');
-        } else {
-          console.error('Token not found after successful login');
-          alert('Login successful, but there was an error. Please try again.');
-        }
+        console.log('Login successful, navigating to dashboard');
+        navigationService.navigate('/dashboard');
       }
     }).catch(error => {
       console.error('Login error:', error);
