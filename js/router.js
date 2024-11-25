@@ -8,6 +8,7 @@ import { isAuthenticated } from './auth.js';
 import { navigationService } from './navigation.js';
 
 const routes = {
+  '/': Login,
   '/login': Login,
   '/dashboard': SecureDashboard,
   '/sql-demo': SQLDemoHome,
