@@ -1,6 +1,6 @@
 FROM node:14 as build
 WORKDIR /app
-COPY package*.json ./
+COPY package*.json .babelrc ./
 RUN npm ci
 COPY . .
 RUN npm run build
