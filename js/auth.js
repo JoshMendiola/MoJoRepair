@@ -5,8 +5,6 @@ export async function handleLogin(event) {
   const username = form.username.value;
   const password = form.password.value;
 
-  console.log('Attempting to send login request...', { username, password });
-
   try {
     console.log('Sending fetch request to /api/login');
     const response = await fetch('/api/login', {
@@ -14,6 +12,7 @@ export async function handleLogin(event) {
       headers: {
         'Content-Type': 'application/json',
       },
+      credentials: 'include', // Important for cookies
       body: JSON.stringify({ username, password }),
     });
 
@@ -23,17 +22,31 @@ export async function handleLogin(event) {
       throw new Error('Login failed');
     }
 
-    const data = await response.json();
-    console.log('Login successful, received data:', data);
-
-    localStorage.setItem('token', data.access_token);
-    return true; // Indicate successful login
+    // No need to store token in localStorage as it's now in cookies
+    return true;
   } catch (error) {
     console.error('Login error:', error);
-    throw error; // Rethrow the error to be caught in login.js
+    throw error;
   }
 }
 
 export function isAuthenticated() {
-  return !!localStorage.getItem('token');
+  return document.cookie.includes('authToken=');
+}
+
+export async function handleLogout() {
+  try {
+    const response = await fetch('/api/logout', {
+      method: 'POST',
+      credentials: 'include',
+    });
+    
+    if (response.ok) {
+      window.location.href = '/login'; // Full page reload to clear any state
+    } else {
+      console.error('Logout failed');
+    }
+  } catch (error) {
+    console.error('Logout error:', error);
+  }
 }

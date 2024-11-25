@@ -1,19 +1,12 @@
-import { isAuthenticated } from '../auth.js';
-import { navigationService } from '../navigation.js';
+import { navigationService } from '../../navigation.js';
 
 export default async function EmployeeDashboard() {
   console.log('Employee Dashboard loading...');
-
-  if (!isAuthenticated()) {
-    navigationService.navigate('/login');
-    return '<p>Please log in to view this page.</p>';
-  }
 
   try {
     const employees = await fetchEmployees();
     const dashboardHtml = renderEmployeeDashboard(employees);
 
-    // Use setTimeout to ensure the DOM is updated before adding event listeners
     setTimeout(() => {
       setupEventListeners();
     }, 0);
@@ -26,25 +19,14 @@ export default async function EmployeeDashboard() {
 }
 
 async function fetchEmployees() {
-  const token = localStorage.getItem('token');
-  if (!token) {
-    throw new Error('No authentication token found');
-  }
-
-  const response = await fetch('/api/employees', {
+  const response = await fetch('/api/sql-demo/employees', {
     method: 'GET',
     headers: {
-      'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/json'
     }
   });
 
   if (!response.ok) {
-    if (response.status === 401) {
-      localStorage.removeItem('token');
-      navigationService.navigate('/login');
-      throw new Error('Session expired. Please log in again.');
-    }
     throw new Error(`HTTP error! status: ${response.status}`);
   }
 
