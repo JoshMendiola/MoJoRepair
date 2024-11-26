@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
-import '../../css/SecureDashboard.css';
+import '../css/SecureDashboard.css';
 
 const SecureDashboard: React.FC = () => {
   const { logout } = useAuth();
