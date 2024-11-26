@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Modal from '../../components/Modal/Modal';
-import '../../../css/EmployeeDashboard.css';
+import '../../css/EmployeeDashboard.css';
 
 interface Employee {
   id: number;
@@ -55,7 +55,7 @@ const EmployeeDashboard = () => {
   return (
     <div className="employee-dashboard">
       <h1>Employee Dashboard</h1>
-      
+
       {employees.length === 0 ? (
         <p>No employees found.</p>
       ) : (
@@ -79,7 +79,7 @@ const EmployeeDashboard = () => {
                     {emp.password ? `${emp.password.substring(0, 10)}...` : 'N/A'}
                   </div>
                   {emp.password && (
-                    <button 
+                    <button
                       className="show-more"
                       onClick={() => handleShowMore(emp.password)}
                     >
@@ -92,7 +92,7 @@ const EmployeeDashboard = () => {
                     {emp.ssh_key ? `${emp.ssh_key.substring(0, 30)}...` : 'N/A'}
                   </div>
                   {emp.ssh_key && (
-                    <button 
+                    <button
                       className="show-more"
                       onClick={() => handleShowMore(emp.ssh_key)}
                     >
@@ -102,12 +102,12 @@ const EmployeeDashboard = () => {
                 </td>
                 <td>
                   <div className="truncate">
-                    {emp.embarrassing_fact 
-                      ? `${emp.embarrassing_fact.substring(0, 30)}...` 
+                    {emp.embarrassing_fact
+                      ? `${emp.embarrassing_fact.substring(0, 30)}...`
                       : 'N/A'}
                   </div>
                   {emp.embarrassing_fact && (
-                    <button 
+                    <button
                       className="show-more"
                       onClick={() => handleShowMore(emp.embarrassing_fact)}
                     >
@@ -121,8 +121,8 @@ const EmployeeDashboard = () => {
         </table>
       )}
 
-      <Modal 
-        isOpen={isModalOpen} 
+      <Modal
+        isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
       >
         <p>{modalContent}</p>

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { services } from '../../services';
-import '../../../css/Services.css';
+import '../../css/Services.css';
 
 const ServicesLoader: React.FC = () => {
   const navigate = useNavigate();
@@ -15,8 +15,8 @@ const ServicesLoader: React.FC = () => {
       <h2>Our Services</h2>
       <div className="services-grid">
         {services.map((service, index) => (
-          <div 
-            key={index} 
+          <div
+            key={index}
             className="service-card"
             onClick={() => handleServiceClick(service.title.toLowerCase().replace(' ', '-'))}
           >

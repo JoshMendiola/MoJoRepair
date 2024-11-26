@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../../../css/VulnerableLogin.css';
+import '../../css/VulnerableLogin.css';
 
 const VulnerableLogin = () => {
   const [username, setUsername] = useState('');
