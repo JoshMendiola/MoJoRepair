@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
-import { navigationService } from '../../navigation.js';
+import { useNavigate } from 'react-router-dom';
+import '../../../css/VulnerableLogin.css';
 
-export default function VulnerableLogin() {
+const VulnerableLogin = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
       const response = await fetch('/api/sql-demo/login', {
@@ -17,12 +20,13 @@ export default function VulnerableLogin() {
       });
 
       if (response.ok) {
-        navigationService.navigate('/sql-demo/employee-dashboard');
+        navigate('/sql-demo/employee-dashboard');
       } else {
-        alert('Login failed');
+        setError('Login failed');
       }
-    } catch (error) {
-      console.error('Login error:', error);
+    } catch (err) {
+      setError('An error occurred');
+      console.error('Login error:', err);
     }
   };
 
@@ -31,25 +35,30 @@ export default function VulnerableLogin() {
       <h2>Admin Login</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label>Username:</label>
+          <label htmlFor="username">Username:</label>
           <input
             type="text"
+            id="username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             required
           />
         </div>
         <div className="form-group">
-          <label>Password:</label>
+          <label htmlFor="password">Password:</label>
           <input
             type="password"
+            id="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
         </div>
+        {error && <div className="error">{error}</div>}
         <button type="submit">Login</button>
       </form>
     </div>
   );
-}
+};
+
+export default VulnerableLogin;

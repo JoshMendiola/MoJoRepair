@@ -1,4 +1,11 @@
-const services = [
+export interface Service {
+  title: string;
+  description: string;
+  price: string;
+  image: string;
+}
+
+export const services: Service[] = [
   {
     title: 'Plumbing Repairs',
     description: 'Expert solutions for all your plumbing needs.',
@@ -37,20 +44,26 @@ const services = [
   }
 ];
 
-function createServiceCard(service) {
+export const loadServices = (): string => {
   return `
-    <div class="service-card">
-      <img src="${service.image}" alt="${service.title}">
-      <div class="service-info">
-        <h3>${service.title}</h3>
-        <p>${service.description}</p>
-        <p class="service-price">${service.price}</p>
-      </div>
+    <div class="services-container">
+      ${services.map(createServiceCard).join('')}
     </div>
   `;
-}
+};
 
-export function loadAboutUs() {
+export const loadServicesPreview = (): string => {
+  return `
+    <section id="services-preview">
+      <h2>Our Services</h2>
+      <ul>
+        ${services.slice(0, 5).map(service => `<li>${service.title}</li>`).join('')}
+      </ul>
+    </section>
+  `;
+};
+
+export const loadAboutUs = (): string => {
   return `
     <section id="about-us">
       <div class="container">
@@ -62,23 +75,17 @@ export function loadAboutUs() {
       </div>
     </section>
   `;
-}
+};
 
-export function loadServicesPreview() {
+function createServiceCard(service: Service): string {
   return `
-    <section id="services-preview">
-      <h2>Our Services</h2>
-      <ul>
-        ${services.slice(0, 5).map(service => `<li>${service.title}</li>`).join('')}
-      </ul>
-    </section>
-  `;
-}
-
-export function loadServices() {
-  return `
-    <div class="services-container">
-      ${services.map(createServiceCard).join('')}
+    <div class="service-card">
+      <img src="${service.image}" alt="${service.title}">
+      <div class="service-info">
+        <h3>${service.title}</h3>
+        <p>${service.description}</p>
+        <p class="service-price">${service.price}</p>
+      </div>
     </div>
   `;
 }

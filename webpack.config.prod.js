@@ -4,45 +4,56 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   mode: 'production',
-  entry: './js/app.js',
+  entry: './src/index.tsx',
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),
     publicPath: '/',
   },
+  resolve: {
+    extensions: ['.ts', '.tsx', '.js', '.jsx'],
+    alias: {
+      '@': path.resolve(__dirname, 'src'),
+    },
+  },
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.(ts|tsx)$/,
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-env'],
+            presets: [
+              '@babel/preset-env',
+              '@babel/preset-react',
+              '@babel/preset-typescript'
+            ],
           },
         },
       },
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader'],
+      },
     ],
-  },
-  resolve: {
-    extensions: ['.js'],
-    alias: {
-      '@': path.resolve(__dirname, 'js'),
-    },
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './index.html',
-      filename: 'index.html',
+      template: './public/index.html',
     }),
     new CopyWebpackPlugin({
       patterns: [
-        { from: 'images', to: 'images' },
-        { from: 'css', to: 'css' },
-        { from: 'robots.txt', to: 'robots.txt' },
-        { from: 'site.webmanifest', to: 'site.webmanifest' },
-        { from: '404.html', to: '404.html' },
+        { from: 'public', to: '' },
+        { from: 'src/images', to: 'images' },
       ],
     }),
   ],
+  devServer: {
+    historyApiFallback: true,
+    port: 3000,
+    proxy: {
+      '/api': 'http://localhost:7000',
+    },
+  },
 };
