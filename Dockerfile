@@ -1,14 +1,13 @@
 FROM node:14 as build
 WORKDIR /app
-COPY package*.json .babelrc ./
-RUN npm ci
+COPY package*.json ./
+RUN npm install
 COPY . .
 RUN npm run build
 
 FROM node:14-alpine
 WORKDIR /app
-RUN npm install
 RUN npm install -g serve
 COPY --from=build /app/dist .
 EXPOSE 3000
-CMD ["http-server", "-p", "3000", "-a", "0.0.0.0", "--single"]
+CMD ["serve", "-s", ".", "-p", "3000"]
