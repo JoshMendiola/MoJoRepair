@@ -9,12 +9,7 @@ module.exports = {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),
     publicPath: '/',
-  },
-  resolve: {
-    extensions: ['.ts', '.tsx', '.js', '.jsx'],
-    alias: {
-      '@': path.resolve(__dirname, 'src'),
-    },
+    clean: true,
   },
   module: {
     rules: [
@@ -36,24 +31,31 @@ module.exports = {
         test: /\.css$/,
         use: ['style-loader', 'css-loader'],
       },
+      {
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        type: 'asset/resource',
+      },
     ],
+  },
+  resolve: {
+    extensions: ['.tsx', '.ts', '.js', '.jsx'],
+    alias: {
+      '@': path.resolve(__dirname, 'src'),
+    },
   },
   plugins: [
     new HtmlWebpackPlugin({
       template: './public/index.html',
+      filename: 'index.html',
     }),
     new CopyWebpackPlugin({
       patterns: [
-        { from: 'public', to: '' },
-        { from: 'src/images', to: 'images' },
+        { 
+          from: 'src/images',
+          to: 'images',
+          noErrorOnMissing: true
+        },
       ],
     }),
   ],
-  devServer: {
-    historyApiFallback: true,
-    port: 3000,
-    proxy: {
-      '/api': 'http://localhost:7000',
-    },
-  },
 };
