@@ -7,6 +7,8 @@ import SQLDemoHome from '../pages/SQLDemo/Home';
 import VulnerableLogin from '../pages/SQLDemo/VulnerableLogin';
 import EmployeeDashboard from '../pages/SQLDemo/EmployeeDashboard';
 import Services from '../pages/SQLDemo/servicesLoader';
+import XSSDemoHome from "../pages/XSSDemo/Home";
+import VulnerableMessageBoard from "../pages/XSSDemo/VulnerableMessageBoard";
 
 const AppRoutes = () => {
   return (
@@ -24,6 +26,8 @@ const AppRoutes = () => {
       <Route path="/sql-demo/services" element={<Services />} />
       <Route path="/sql-demo/admin" element={<VulnerableLogin />} />
       <Route path="/sql-demo/employee-dashboard" element={<EmployeeDashboard />} />
+      <Route path="/xss-demo" element={<XSSDemoHome/>} />
+      <Route path="/xss-demo/message-board" element={<VulnerableMessageBoard/>} />
       <Route path="/" element={<Navigate to="/login" replace />} />
     </Routes>
   );

@@ -1,4 +1,4 @@
-// VulnerableLogin.tsx
+// VulnerableMessageBoard.tsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../../css/VulnerableLogin.css';
@@ -12,7 +12,7 @@ const VulnerableLogin = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://147.182.176.235/api/sql-demo/login', {
+      const response = await fetch('http://147.182.176.235/api/xss-demo/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
