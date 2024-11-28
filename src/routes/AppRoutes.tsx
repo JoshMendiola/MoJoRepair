@@ -12,13 +12,13 @@ const AppRoutes = () => {
   return (
     <Routes>
       <Route path="/login" element={<Login />} />
-      <Route 
-        path="/dashboard" 
+      <Route
+        path="/dashboard"
         element={
           <ProtectedRoute>
             <SecureDashboard />
           </ProtectedRoute>
-        } 
+        }
       />
       <Route path="/sql-demo" element={<SQLDemoHome />} />
       <Route path="/sql-demo/services" element={<Services />} />

@@ -1,3 +1,4 @@
+// VulnerableLogin.tsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../../css/VulnerableLogin.css';
@@ -11,18 +12,22 @@ const VulnerableLogin = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await fetch('/api/sql-demo/login', {
+      const response = await fetch('http://147.182.176.235/api/sql-demo/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ username, password }),
+        credentials: 'include'  // Important for cookies if needed
       });
 
+      const data = await response.json();
+
       if (response.ok) {
+        // Successful login
         navigate('/sql-demo/employee-dashboard');
       } else {
-        setError('Login failed');
+        setError(data.message || 'Login failed');
       }
     } catch (err) {
       setError('An error occurred');
@@ -32,7 +37,7 @@ const VulnerableLogin = () => {
 
   return (
     <div className="login-container">
-      <h2>Admin Login</h2>
+      <h2>SQL Injection Demo Login</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="username">Username:</label>
