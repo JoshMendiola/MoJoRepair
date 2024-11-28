@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../../css/VulnerableLogin.css';
+import '../../css/VulnerableMessageBoard.css';
 
 const VulnerableMessageBoard = () => {
   const [messages, setMessages] = useState<any[]>([]);
@@ -55,7 +55,6 @@ const VulnerableMessageBoard = () => {
   };
 
   const handleReset = async () => {
-    // First clear all messages (you'll need a new endpoint for this)
     try {
       const clearResponse = await fetch('http://147.182.176.235/api/xss-demo/clear', {
         method: 'POST',
@@ -67,15 +66,27 @@ const VulnerableMessageBoard = () => {
         return;
       }
 
-      // Then post the reset styles
       const resetMessage = `
       <style>
-      /* Reset everything first */
-      * {
-        all: revert !important;
+      /* First reset specific elements */
+      html, body, div, h1, h2, h3, h4, h5, h6, p, form, input, textarea, button, label {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        font: inherit;
+        color: inherit;
+        background: initial;
       }
 
-      /* Reapply our original styles */
+      /* Set base styles */
+      body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        color: #333;
+        background: white;
+      }
+
+      /* Reapply all our original styles */
       .login-container {
         max-width: 800px;
         margin: 0 auto;
@@ -139,7 +150,9 @@ const VulnerableMessageBoard = () => {
         margin-top: 5px;
       }
       </style>
-      Styles have been reset!
+      <div style="padding: 10px; background: #e9ecef; border-radius: 4px; margin-bottom: 10px;">
+        Styles have been reset!
+      </div>
     `;
 
       const response = await fetch('http://147.182.176.235/api/xss-demo/post', {
