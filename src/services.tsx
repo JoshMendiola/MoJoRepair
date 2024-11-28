@@ -1,15 +1,3 @@
-// @ts-ignore
-import plumbingImg from '../images/plumbing.jpg';
-// @ts-ignore
-import electricalImg from '../images/electrical.jpg';
-// @ts-ignore
-import carpentryImg from '../images/carpentry.jpg';
-// @ts-ignore
-import paintingImg from '../images/painting.jpg';
-// @ts-ignore
-import hvacImg from '../images/hvac.jpg';
-// @ts-ignore
-import autoImg from '../images/auto.jpg';
 
 export interface Service {
   title: string;
@@ -23,37 +11,37 @@ export const services: Service[] = [
     title: 'Plumbing Repairs',
     description: 'Expert solutions for all your plumbing needs.',
     price: '$95/hour',
-    image: plumbingImg
+    image: '/images/plumbing.jpg'  // Use path directly
   },
   {
     title: 'Electrical Work',
     description: 'Safe and efficient electrical repairs and installations.',
     price: '$110/hour',
-    image: electricalImg
+    image: '/images/electrical.jpg'
   },
   {
     title: 'Carpentry',
     description: 'Custom woodwork and repairs for your home.',
     price: '$85/hour',
-    image: carpentryImg
+    image: '/images/carpentry.jpg'
   },
   {
     title: 'Painting',
     description: 'Transform your space with our professional painting services.',
     price: '$80/hour',
-    image: paintingImg
+    image: '/images/painting.jpg'
   },
   {
     title: 'HVAC',
     description: 'Heating, ventilation, and air conditioning solutions.',
     price: '$120/hour',
-    image: hvacImg
+    image: '/images/hvac.jpg'
   },
   {
     title: 'Automobile Maintenance',
     description: 'Keep your vehicle running smoothly with our expert care.',
     price: '$150/hour',
-    image: autoImg
+    image: '/images/auto.jpg'
   }
 ];
 
