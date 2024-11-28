@@ -55,7 +55,20 @@ const VulnerableMessageBoard = () => {
   };
 
   const handleReset = async () => {
-    const resetMessage = `
+    // First clear all messages (you'll need a new endpoint for this)
+    try {
+      const clearResponse = await fetch('http://147.182.176.235/api/xss-demo/clear', {
+        method: 'POST',
+        credentials: 'include'
+      });
+
+      if (!clearResponse.ok) {
+        console.error('Failed to clear messages');
+        return;
+      }
+
+      // Then post the reset styles
+      const resetMessage = `
       <style>
       /* Reset everything first */
       * {
@@ -129,7 +142,6 @@ const VulnerableMessageBoard = () => {
       Styles have been reset!
     `;
 
-    try {
       const response = await fetch('http://147.182.176.235/api/xss-demo/post', {
         method: 'POST',
         headers: {
