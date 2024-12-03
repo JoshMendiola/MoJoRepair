@@ -1,4 +1,3 @@
-// VulnerableMessageBoard.tsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../../css/VulnerableLogin.css';
@@ -7,6 +6,7 @@ const VulnerableLogin = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [isShaking, setIsShaking] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -18,25 +18,28 @@ const VulnerableLogin = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ username, password }),
-        credentials: 'include'  // Important for cookies if needed
+        credentials: 'include'
       });
 
       const data = await response.json();
 
       if (response.ok) {
-        // Successful login
         navigate('/sql-demo/employee-dashboard');
       } else {
         setError(data.message || 'Login failed');
+        setIsShaking(true);
+        setTimeout(() => setIsShaking(false), 650);
       }
     } catch (err) {
       setError('An error occurred');
+      setIsShaking(true);
+      setTimeout(() => setIsShaking(false), 650);
       console.error('Login error:', err);
     }
   };
 
   return (
-    <div className="login-container">
+    <div className={`login-container ${isShaking ? 'shake' : ''}`}>
       <h2>SQL Injection Demo Login</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">

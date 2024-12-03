@@ -6,6 +6,7 @@ const Login: React.FC = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [isShaking, setIsShaking] = useState(false);
   const { login } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -16,16 +17,20 @@ const Login: React.FC = () => {
       const success = await login(username, password);
       if (!success) {
         setError('Invalid username or password');
+        setIsShaking(true);
+        setTimeout(() => setIsShaking(false), 650);
       }
     } catch (err) {
       setError('Something went wrong. Please try again.');
+      setIsShaking(true);
+      setTimeout(() => setIsShaking(false), 650);
       console.error('Login error:', err);
     }
   };
 
   return (
     <section id="login">
-      <div className="form-container">
+      <div className={`form-container ${isShaking ? 'shake' : ''}`}>
         <h2>Login</h2>
         <form onSubmit={handleSubmit}>
           <div className="form-group">
