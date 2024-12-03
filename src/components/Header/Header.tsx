@@ -17,9 +17,9 @@ const Header = () => {
       <nav>
         <div className="logo">MoJo Repairs</div>
         <ul>
-          <li><Link to="/">Home</Link></li>
-          <li><Link to="/services">Services</Link></li>
-          <li><a href="http://147.182.176.235/dashboard">Menu</a></li>
+          <li><Link to="/dashboard">Demo Menu</Link></li>
+          <li><Link to="/sql-demo">SQL Demo</Link></li>
+          <li><a href="/xss-demo">XSS Demo</a></li>
           {isAuthenticated && (
             <li><button onClick={logout}>Logout</button></li>
           )}
