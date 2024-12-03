@@ -15,10 +15,10 @@ const Login: React.FC = () => {
     try {
       const success = await login(username, password);
       if (!success) {
-        setError('Invalid credentials');
+        setError('Invalid username or password');
       }
     } catch (err) {
-      setError('Login failed. Please try again.');
+      setError('Something went wrong. Please try again.');
       console.error('Login error:', err);
     }
   };
@@ -29,27 +29,31 @@ const Login: React.FC = () => {
         <h2>Login</h2>
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label htmlFor="username">Username:</label>
+            <label htmlFor="username">Username</label>
             <input
               type="text"
               id="username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
+              placeholder="Enter your username"
               required
             />
           </div>
           <div className="form-group">
-            <label htmlFor="password">Password:</label>
+            <label htmlFor="password">Password</label>
             <input
               type="password"
               id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              placeholder="Enter your password"
               required
             />
           </div>
           {error && <div className="error-message">{error}</div>}
-          <button type="submit" className="btn-login">Login</button>
+          <button type="submit" className="btn-login">
+            Login
+          </button>
         </form>
       </div>
     </section>
