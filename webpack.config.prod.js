@@ -10,6 +10,7 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     publicPath: '/',
     clean: true,
+    assetModuleFilename: 'images/[name][ext]', // Add this line for asset handling
   },
   module: {
     rules: [
@@ -34,6 +35,9 @@ module.exports = {
       {
         test: /\.(png|svg|jpg|jpeg|gif)$/i,
         type: 'asset/resource',
+        generator: {  // Add this generator config
+          filename: 'images/[name][ext]'
+        }
       },
     ],
   },
@@ -51,7 +55,7 @@ module.exports = {
     new CopyWebpackPlugin({
       patterns: [
         { 
-          from: 'src/images',
+          from: 'src/assets/images', // Updated path to match new structure
           to: 'images',
           noErrorOnMissing: true
         },
