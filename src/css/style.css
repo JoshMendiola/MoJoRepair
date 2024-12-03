@@ -5,10 +5,11 @@
 
 /* CSS Variables */
 :root {
-  --primary-color: #2E3440;
+  --primary-color: #E4E4E4;
   --secondary-color: #88C0D0;
   --accent-color: #BF616A;
-  --background-color: #ECEFF4;
+  --background-color: #1F2937;
+  --surface-color: #2D3748;
   --code-font: 'JetBrains Mono', monospace;
   --body-font: 'Roboto', sans-serif;
   --header-font: 'Source Sans Pro', sans-serif;
@@ -56,13 +57,13 @@ code, pre {
 main {
   flex: 1;
   padding: 20px;
-  padding-bottom: 80px; /* Increased padding to prevent footer overlap */
+  padding-bottom: 80px;
 }
 
 /* Common utility classes */
 .button {
   background-color: var(--secondary-color);
-  color: var(--primary-color);
+  color: var(--background-color);
   border: none;
   padding: 0.5rem 1rem;
   border-radius: 4px;
@@ -81,4 +82,28 @@ main {
   padding: 1rem;
   border-radius: 4px;
   margin: 1rem 0;
+}
+
+.loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--background-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.loading-text {
+  font-family: var(--code-font);
+  font-size: 3rem;
+  color: var(--secondary-color);
+  text-shadow: 0 0 10px rgba(136, 192, 208, 0.3);
+}
+
+.hidden {
+  display: none;
 }
