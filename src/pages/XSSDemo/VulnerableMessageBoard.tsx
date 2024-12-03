@@ -68,29 +68,29 @@ const VulnerableMessageBoard = () => {
 
       const resetMessage = `
       <style>
-      /* First reset specific elements */
+      /* Dark theme reset styles */
       html, body, div, h1, h2, h3, h4, h5, h6, p, form, input, textarea, button, label {
         margin: 0;
         padding: 0;
         border: 0;
         font: inherit;
-        color: inherit;
+        color: var(--primary-color);
         background: initial;
       }
 
-      /* Set base styles */
       body {
-        font-family: Arial, sans-serif;
+        font-family: var(--body-font);
         line-height: 1.6;
-        color: #333;
-        background: white;
+        color: var(--primary-color);
+        background: var(--background-color);
       }
 
-      /* Reapply all our original styles */
       .login-container {
         max-width: 800px;
         margin: 0 auto;
         padding: 20px;
+        background-color: var(--surface-color);
+        border-radius: 8px;
       }
 
       .form-group {
@@ -100,14 +100,17 @@ const VulnerableMessageBoard = () => {
       .form-group label {
         display: block;
         margin-bottom: 5px;
+        color: var(--primary-color);
       }
 
       .form-group input,
       .form-group textarea {
         width: 100%;
         padding: 8px;
-        border: 1px solid #ddd;
+        background-color: rgba(0, 0, 0, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.1);
         border-radius: 4px;
+        color: var(--primary-color);
       }
 
       .form-group textarea {
@@ -116,13 +119,13 @@ const VulnerableMessageBoard = () => {
       }
 
       .error {
-        color: red;
+        color: var(--accent-color);
         margin: 10px 0;
       }
 
       button {
-        background-color: #007bff;
-        color: white;
+        background-color: var(--secondary-color);
+        color: var(--background-color);
         padding: 10px 15px;
         border: none;
         border-radius: 4px;
@@ -130,7 +133,7 @@ const VulnerableMessageBoard = () => {
       }
 
       button:hover {
-        background-color: #0056b3;
+        opacity: 0.9;
       }
 
       .messages-section {
@@ -138,7 +141,8 @@ const VulnerableMessageBoard = () => {
       }
 
       .message-card {
-        border: 1px solid #ddd;
+        background-color: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
         padding: 15px;
         margin-bottom: 15px;
         border-radius: 4px;
@@ -146,11 +150,11 @@ const VulnerableMessageBoard = () => {
 
       .message-meta {
         font-size: 0.9em;
-        color: #666;
+        color: rgba(255, 255, 255, 0.6);
         margin-top: 5px;
       }
       </style>
-      <div style="padding: 10px; background: #e9ecef; border-radius: 4px; margin-bottom: 10px;">
+      <div style="padding: 10px; background: var(--surface-color); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 4px; margin-bottom: 10px; color: var(--primary-color);">
         Styles have been reset!
       </div>
     `;
@@ -180,15 +184,7 @@ const VulnerableMessageBoard = () => {
       <h2>Message Board</h2>
       <button
         onClick={handleReset}
-        style={{
-          marginBottom: '20px',
-          backgroundColor: '#dc3545',
-          padding: '8px 16px',
-          color: 'white',
-          border: 'none',
-          borderRadius: '4px',
-          cursor: 'pointer'
-        }}
+        className="reset-button"
       >
         Reset Styles
       </button>

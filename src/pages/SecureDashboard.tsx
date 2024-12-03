@@ -2,9 +2,29 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import '../css/SecureDashboard.css';
 
+interface DemoCard {
+  title: string;
+  description: string;
+  route: string;
+  image: string;
+}
+
+const demoCards: DemoCard[] = [
+  {
+    title: 'SQL Injection Demo',
+    description: 'Explore SQL injection vulnerabilities in a controlled environment',
+    route: '/sql-demo',
+    image: require('../assets/SQLimage.jpg')
+  },
+  {
+    title: 'XSS Demo',
+    description: 'Test Cross-Site Scripting attacks safely',
+    route: '/xss-demo',
+    image: require('../assets/XSSimage.jpg')
+  }
+];
+
 const SecureDashboard: React.FC = () => {
-
-
   return (
     <div className="dashboard-container">
       <div className="dashboard-header">
@@ -12,17 +32,18 @@ const SecureDashboard: React.FC = () => {
       </div>
 
       <div className="demo-grid">
-        <div className="demo-card">
-          <h2>SQL Injection Demo</h2>
-          <p>Explore SQL injection vulnerabilities in a controlled environment</p>
-          <Link to="/sql-demo" className="demo-link">Launch Demo</Link>
-        </div>
-
-        <div className="demo-card">
-          <h2>XSS Demo</h2>
-          <p>Test Cross-Site Scripting attacks safely</p>
-          <Link to="/xss-demo" className="demo-link">Launch Demo</Link>
-        </div>
+        {demoCards.map((card, index) => (
+          <div key={index} className="demo-card">
+            <div className="demo-card-image">
+              <img src={card.image} alt={`${card.title} Visualization`} />
+            </div>
+            <div className="demo-card-content">
+              <h2>{card.title}</h2>
+              <p>{card.description}</p>
+              <Link to={card.route} className="demo-link">Launch Demo</Link>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );
