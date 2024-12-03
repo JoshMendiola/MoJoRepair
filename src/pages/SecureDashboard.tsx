@@ -14,13 +14,13 @@ const demoCards: DemoCard[] = [
     title: 'SQL Injection Demo',
     description: 'Explore SQL injection vulnerabilities in a controlled environment',
     route: '/sql-demo',
-    image: require('./assets/images/SQLimage.jpg')
+    image: require('../assets/images/SQLimage.jpg')
   },
   {
     title: 'XSS Demo',
     description: 'Test Cross-Site Scripting attacks safely',
     route: '/xss-demo',
-    image: require('./assets/images/XSSimage.jpg')
+    image: require('../assets/images/XSSimage.jpg')
   }
 ];
 
