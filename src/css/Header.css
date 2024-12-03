@@ -41,7 +41,8 @@ nav ul {
   display: inline-block;
   background: none;
   border: none;
-  font-family: var(--body-font);
+  font-family: var(--code-font);  /* Changed to code font */
+  letter-spacing: 0.5px;  /* Added for better readability */
 }
 
 .nav-link:hover {
@@ -52,4 +53,5 @@ nav ul {
 .nav-link.active {
   background-color: var(--secondary-color);
   color: var(--background-color);
+  font-weight: 500;  /* Added for better emphasis when active */
 }
