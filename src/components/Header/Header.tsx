@@ -13,7 +13,12 @@ const Header = () => {
         <ul>
           <li><Link to="/">Home</Link></li>
           <li><Link to="/services">Services</Link></li>
-          {isAuthenticated && <li><button onClick={logout}>Logout</button></li>}
+          {isAuthenticated && (
+            <>
+              <li><Link to="http://147.182.176.235/dashboard">Menu</Link></li>
+              <li><button onClick={logout}>Logout</button></li>
+            </>
+          )}
         </ul>
       </nav>
     </header>
