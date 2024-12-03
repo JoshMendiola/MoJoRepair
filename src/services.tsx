@@ -1,4 +1,3 @@
-
 export interface Service {
   title: string;
   description: string;
@@ -11,37 +10,36 @@ export const services: Service[] = [
     title: 'Plumbing Repairs',
     description: 'Expert solutions for all your plumbing needs.',
     price: '$95/hour',
-    image: 'public/images/plumbing.jpg'  // Use path directly
+    image: '/images/plumbing.jpg'  // Remove 'public' from path
   },
   {
     title: 'Electrical Work',
     description: 'Safe and efficient electrical repairs and installations.',
     price: '$110/hour',
-    image: 'public/images/electrical.jpg'
+    image: '/images/electrical.jpg'
   },
   {
     title: 'Carpentry',
     description: 'Custom woodwork and repairs for your home.',
     price: '$85/hour',
-    image: 'public/images/carpentry.jpg'
+    image: '/images/carpentry.jpg'
   },
   {
     title: 'Painting',
     description: 'Transform your space with our professional painting services.',
     price: '$80/hour',
-    image: 'public/images/painting.jpg'
+    image: '/images/painting.jpg'
   },
   {
     title: 'HVAC',
     description: 'Heating, ventilation, and air conditioning solutions.',
     price: '$120/hour',
-    image: 'public/images/hvac.jpg'
+    image: '/images/hvac.jpg'
   },
   {
     title: 'Automobile Maintenance',
     description: 'Keep your vehicle running smoothly with our expert care.',
     price: '$150/hour',
-    image: 'public/images/auto.jpg'
+    image: '/images/auto.jpg'
   }
 ];
-

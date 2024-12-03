@@ -1,10 +1,16 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import '../../css/Header.css';
 
 const Header = () => {
   const { isAuthenticated, logout } = useAuth();
+  const location = useLocation();
+  
+  // Don't render header on home or login pages
+  if (location.pathname === '/' || location.pathname === '/login') {
+    return null;
+  }
 
   return (
     <header id="header">
@@ -13,11 +19,9 @@ const Header = () => {
         <ul>
           <li><Link to="/">Home</Link></li>
           <li><Link to="/services">Services</Link></li>
+          <li><a href="http://147.182.176.235/dashboard">Menu</a></li>
           {isAuthenticated && (
-            <>
-              <li><Link to="http://147.182.176.235/dashboard">Menu</Link></li>
-              <li><button onClick={logout}>Logout</button></li>
-            </>
+            <li><button onClick={logout}>Logout</button></li>
           )}
         </ul>
       </nav>
