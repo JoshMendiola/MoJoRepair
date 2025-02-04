@@ -11,6 +11,7 @@ const VulnerableFileUpload = () => {
   const [uploadStatus, setUploadStatus] = useState('');
   const [uploadedFiles, setUploadedFiles] = useState<UploadedFile[]>([]);
   const [error, setError] = useState('');
+  const [fileOutput, setFileOutput] = useState('');
 
   const fetchUploadedFiles = async () => {
     try {
@@ -72,6 +73,25 @@ const VulnerableFileUpload = () => {
     }
   };
 
+  const handleViewFile = async (filename: string) => {
+    try {
+      const response = await fetch(`http://147.182.176.235/api/file-demo/view/${filename}`, {
+        credentials: 'include'
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setFileOutput(data.output || data.content || 'No output');
+      } else {
+        const data = await response.json();
+        setError(data.error || 'Failed to view file');
+      }
+    } catch (err) {
+      setError('An error occurred while viewing the file');
+      console.error('View error:', err);
+    }
+  };
+
   return (
     <div className="upload-container">
       <h2>File Upload</h2>
@@ -94,13 +114,30 @@ const VulnerableFileUpload = () => {
         <h3>Uploaded Files:</h3>
         {uploadedFiles.map((file, index) => (
           <div key={index} className="file-card">
-            <div>{file.filename}</div>
+            <div className="file-info">
+              <span>{file.filename}</span>
+              <button
+                onClick={() => handleViewFile(file.filename)}
+                className="view-button"
+              >
+                View/Execute
+              </button>
+            </div>
             <div className="file-meta">
               Uploaded: {new Date(file.upload_date).toLocaleString()}
             </div>
           </div>
         ))}
       </div>
+
+      {fileOutput && (
+        <div className="output-section">
+          <h3>File Output:</h3>
+          <pre className="output-content">
+            {fileOutput}
+          </pre>
+        </div>
+      )}
     </div>
   );
 };
