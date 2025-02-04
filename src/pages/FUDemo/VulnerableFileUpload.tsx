@@ -3,7 +3,6 @@ import '../../css/FUDemo.css';
 
 interface UploadedFile {
   filename: string;
-  filepath: string;
   upload_date: string;
 }
 
@@ -15,7 +14,7 @@ const VulnerableFileUpload = () => {
 
   const fetchUploadedFiles = async () => {
     try {
-      const response = await fetch('http://147.182.176.235:7000/api/file-demo/files', {
+      const response = await fetch('http://147.182.176.235/api/file-demo/files', {
         credentials: 'include'
       });
       if (response.ok) {
@@ -37,7 +36,7 @@ const VulnerableFileUpload = () => {
     }
   };
 
-  const handleUpload = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!file) {
@@ -45,11 +44,11 @@ const VulnerableFileUpload = () => {
       return;
     }
 
-    const formData = new FormData();
-    formData.append('file', file);
-
     try {
-      const response = await fetch('http://147.182.176.235:7000/api/file-demo/upload', {
+      const formData = new FormData();
+      formData.append('file', file);
+
+      const response = await fetch('http://147.182.176.235/api/file-demo/upload', {
         method: 'POST',
         body: formData,
         credentials: 'include'
@@ -57,6 +56,7 @@ const VulnerableFileUpload = () => {
 
       if (response.ok) {
         setFile(null);
+        setError('');
         setUploadStatus('File uploaded successfully!');
         fetchUploadedFiles();
         // Reset the file input
@@ -67,7 +67,7 @@ const VulnerableFileUpload = () => {
         setError(data.message || 'Failed to upload file');
       }
     } catch (err) {
-      setError('An error occurred during upload');
+      setError('An error occurred');
       console.error('Upload error:', err);
     }
   };
@@ -75,13 +75,14 @@ const VulnerableFileUpload = () => {
   return (
     <div className="upload-container">
       <h2>File Upload</h2>
-      <form onSubmit={handleUpload}>
+      <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="file">Select File:</label>
           <input
             type="file"
             id="file"
             onChange={handleFileChange}
+            required
           />
         </div>
         {error && <div className="error">{error}</div>}
@@ -93,7 +94,7 @@ const VulnerableFileUpload = () => {
         <h3>Uploaded Files:</h3>
         {uploadedFiles.map((file, index) => (
           <div key={index} className="file-card">
-            <div className="file-name">{file.filename}</div>
+            <div>{file.filename}</div>
             <div className="file-meta">
               Uploaded: {new Date(file.upload_date).toLocaleString()}
             </div>
