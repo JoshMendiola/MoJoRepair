@@ -9,6 +9,8 @@ import EmployeeDashboard from '../pages/SQLDemo/EmployeeDashboard';
 import Services from '../pages/SQLDemo/servicesLoader';
 import XSSDemoHome from "../pages/XSSDemo/Home";
 import VulnerableMessageBoard from "../pages/XSSDemo/VulnerableMessageBoard";
+import FUDemoHome from "../pages/FUDemo/Home";
+import VulnerableFileUpload from "../pages/FUDemo/VulnerableFileUpload";
 
 const AppRoutes = () => {
   return (
@@ -26,8 +28,10 @@ const AppRoutes = () => {
       <Route path="/sql-demo/services" element={<Services />} />
       <Route path="/sql-demo/admin" element={<VulnerableLogin />} />
       <Route path="/sql-demo/employee-dashboard" element={<EmployeeDashboard />} />
-      <Route path="/xss-demo" element={<XSSDemoHome/>} />
-      <Route path="/xss-demo/message-board" element={<VulnerableMessageBoard/>} />
+      <Route path="/xss-demo" element={<XSSDemoHome />} />
+      <Route path="/xss-demo/message-board" element={<VulnerableMessageBoard />} />
+      <Route path="/fu-demo" element={<FUDemoHome />} />
+      <Route path="/fu-demo/upload" element={<VulnerableFileUpload />} />
       <Route path="/" element={<Navigate to="/login" replace />} />
     </Routes>
   );
