@@ -29,7 +29,7 @@ const demoCards: DemoCard[] = [
     title: 'File Upload Demo',
     description: 'Test file upload vulnerabilities and bypasses in a secure environment',
     route: '/fu-demo',
-    image: require('../assets/images/FileUploadimage.jpg'),
+    image: require('../assets/images/FileUpload.webp'),
     buttonText: 'Launch Demo'
   }
 ];
