@@ -94,8 +94,12 @@ const VulnerableFileUpload = () => {
       if (response.ok) {
         const data = await response.json();
         setFileOutput(data.output || data.content || 'No output');
-        // Refresh the file list after viewing since files are deleted after viewing
-        fetchUploadedFiles();
+
+        // Immediately remove the file from the displayed list
+        setUploadedFiles(prev => prev.filter(file => file.filename !== filename));
+
+        // Refresh the file list from the server
+        await fetchUploadedFiles();
       } else {
         const data = await response.json();
         setError(data.error || 'Failed to view file');
