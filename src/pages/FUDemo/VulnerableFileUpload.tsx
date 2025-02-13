@@ -13,6 +13,8 @@ const VulnerableFileUpload = () => {
   const [error, setError] = useState('');
   const [fileOutput, setFileOutput] = useState('');
 
+  const ALLOWED_FILE_TYPES = ['image/png', 'image/jpeg', 'image/gif'];
+
   const fetchUploadedFiles = async () => {
     try {
       const response = await fetch('http://147.182.176.235/api/file-demo/files', {
@@ -32,8 +34,18 @@ const VulnerableFileUpload = () => {
   }, []);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files && event.target.files[0]) {
-      setFile(event.target.files[0]);
+    const selectedFile = event.target.files?.[0];
+
+    if (selectedFile) {
+      if (!ALLOWED_FILE_TYPES.includes(selectedFile.type)) {
+        setError('Invalid file type. Only PNG, JPEG, and GIF files are allowed.');
+        setFile(null);
+        event.target.value = ''; // Reset file input
+        return;
+      }
+      setError(''); // Clear any previous errors
+      setFile(selectedFile);
+      setUploadStatus(''); // Clear any previous upload status
     }
   };
 
@@ -65,7 +77,7 @@ const VulnerableFileUpload = () => {
         if (fileInput) fileInput.value = '';
       } else {
         const data = await response.json();
-        setError(data.message || 'Failed to upload file');
+        setError(data.error || 'Failed to upload file');
       }
     } catch (err) {
       setError('An error occurred');
@@ -82,6 +94,8 @@ const VulnerableFileUpload = () => {
       if (response.ok) {
         const data = await response.json();
         setFileOutput(data.output || data.content || 'No output');
+        // Refresh the file list after viewing since files are deleted after viewing
+        fetchUploadedFiles();
       } else {
         const data = await response.json();
         setError(data.error || 'Failed to view file');
@@ -102,8 +116,12 @@ const VulnerableFileUpload = () => {
             type="file"
             id="file"
             onChange={handleFileChange}
+            accept="image/png,image/jpeg,image/gif"
             required
           />
+          <p className="text-sm text-gray-500 mt-1">
+            Accepted file types: PNG, JPEG, GIF
+          </p>
         </div>
         {error && <div className="error">{error}</div>}
         {uploadStatus && <div className="success">{uploadStatus}</div>}
