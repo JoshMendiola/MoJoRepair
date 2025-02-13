@@ -1,5 +1,5 @@
 .dashboard-container {
-  max-width: 1200px;
+  max-width: 1600px; /* Match grid max-width */
   margin: 0 auto;
   padding: 20px;
 }
@@ -16,9 +16,11 @@
 /* Demo Grid and Cards */
 .demo-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 500px));
+  grid-template-columns: repeat(3, 1fr); /* Force 3 columns */
   gap: 20px;
   justify-content: center;
+  max-width: 1600px; /* Increased max-width to accommodate all cards */
+  margin: 0 auto;
 }
 
 .demo-card {
@@ -28,8 +30,7 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
   overflow: hidden;
   transition: transform 0.2s ease;
-  max-width: 500px;
-  margin: 0 auto;
+  width: 100%; /* Allow cards to fill their grid space */
 }
 
 .demo-card-image {
