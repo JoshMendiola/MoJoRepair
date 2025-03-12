@@ -12,6 +12,7 @@ const VulnerableFileUpload = () => {
   const [uploadedFiles, setUploadedFiles] = useState<UploadedFile[]>([]);
   const [error, setError] = useState('');
   const [fileOutput, setFileOutput] = useState('');
+  const [isShaking, setIsShaking] = useState(false);
 
   const ALLOWED_FILE_TYPES = ['image/png', 'image/jpeg', 'image/gif'];
 
@@ -39,6 +40,8 @@ const VulnerableFileUpload = () => {
     if (selectedFile) {
       if (!ALLOWED_FILE_TYPES.includes(selectedFile.type)) {
         setError('Invalid file type. Only PNG, JPEG, and GIF files are allowed.');
+        setIsShaking(true);
+        setTimeout(() => setIsShaking(false), 650);
         setFile(null);
         event.target.value = ''; // Reset file input
         return;
@@ -54,6 +57,8 @@ const VulnerableFileUpload = () => {
 
     if (!file) {
       setError('Please select a file');
+      setIsShaking(true);
+      setTimeout(() => setIsShaking(false), 650);
       return;
     }
 
@@ -67,6 +72,13 @@ const VulnerableFileUpload = () => {
         credentials: 'include'
       });
 
+      if (response.status === 403) {
+        setError('Request Blocked by Snoopy');
+        setIsShaking(true);
+        setTimeout(() => setIsShaking(false), 650);
+        return;
+      }
+
       if (response.ok) {
         setFile(null);
         setError('');
@@ -78,9 +90,13 @@ const VulnerableFileUpload = () => {
       } else {
         const data = await response.json();
         setError(data.error || 'Failed to upload file');
+        setIsShaking(true);
+        setTimeout(() => setIsShaking(false), 650);
       }
     } catch (err) {
       setError('An error occurred');
+      setIsShaking(true);
+      setTimeout(() => setIsShaking(false), 650);
       console.error('Upload error:', err);
     }
   };
@@ -103,15 +119,19 @@ const VulnerableFileUpload = () => {
       } else {
         const data = await response.json();
         setError(data.error || 'Failed to view file');
+        setIsShaking(true);
+        setTimeout(() => setIsShaking(false), 650);
       }
     } catch (err) {
       setError('An error occurred while viewing the file');
+      setIsShaking(true);
+      setTimeout(() => setIsShaking(false), 650);
       console.error('View error:', err);
     }
   };
 
   return (
-    <div className="upload-container">
+    <div className={`upload-container ${isShaking ? 'shake' : ''}`}>
       <h2>File Upload</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">

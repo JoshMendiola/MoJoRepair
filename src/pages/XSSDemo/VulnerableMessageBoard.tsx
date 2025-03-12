@@ -5,6 +5,7 @@ const VulnerableMessageBoard = () => {
   const [messages, setMessages] = useState<any[]>([]);
   const [newMessage, setNewMessage] = useState('');
   const [username, setUsername] = useState('');
+  const [isShaking, setIsShaking] = useState(false);
   const [error, setError] = useState('');
 
   const fetchMessages = async () => {
@@ -40,6 +41,13 @@ const VulnerableMessageBoard = () => {
         credentials: 'include'
       });
 
+      if (response.status === 403) {
+        setError('Request Blocked by Snoopy');
+        setIsShaking(true);
+        setTimeout(() => setIsShaking(false), 650);
+        return;
+      }
+
       if (response.ok) {
         setNewMessage('');
         setUsername('');
@@ -47,9 +55,13 @@ const VulnerableMessageBoard = () => {
       } else {
         const data = await response.json();
         setError(data.message || 'Failed to post message');
+        setIsShaking(true);
+        setTimeout(() => setIsShaking(false), 650);
       }
     } catch (err) {
       setError('An error occurred');
+      setIsShaking(true);
+      setTimeout(() => setIsShaking(false), 650);
       console.error('Post error:', err);
     }
   };
@@ -180,7 +192,7 @@ const VulnerableMessageBoard = () => {
   };
 
   return (
-    <div className="login-container">
+    <div className={`login-container ${isShaking ? 'shake' : ''}`}>
       <h2>Message Board</h2>
       <button
         onClick={handleReset}

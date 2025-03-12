@@ -21,6 +21,13 @@ const VulnerableLogin = () => {
         credentials: 'include'
       });
 
+      if (response.status === 403) {
+        setError('Request Blocked by Snoopy');
+        setIsShaking(true);
+        setTimeout(() => setIsShaking(false), 650);
+        return;
+      }
+
       const data = await response.json();
 
       if (response.ok) {
